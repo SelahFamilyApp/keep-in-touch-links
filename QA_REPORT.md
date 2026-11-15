@@ -1,25 +1,25 @@
-# Keep in Touch — Official Links and Mobile QA
+# Keep in Touch — Mobile QA and Links
 
 Updated: 2026-11-15
 
-## Live deployment
-Public GitHub Pages site: https://selahfamilyapp.github.io/keep-in-touch-links/
-Personal GitHub repository: https://github.com/SelahFamilyApp/keep-in-touch-links
+## Website
+- Public: https://selahfamilyapp.github.io/keep-in-touch-links/
+- Owner's GitHub: https://github.com/SelahFamilyApp/keep-in-touch-links
 
-## Verified owner-supplied links
-- WhatsApp: https://wa.me/201552304431
-- Facebook (only official page on the site): https://www.facebook.com/KEEPINTOUCH72.2
-- TikTok (canonical account URL without temporary sharing parameters): https://www.tiktok.com/@mohamedelshabraw51
-- InstaPay payment link: https://ipn.eg/S/mohamed.mansour175505/instapay/5eK26X
-- Recipient displayed before payment: mohamed.mansour175505@instapay
+## Active buttons (only these five)
+1. WhatsApp — https://wa.me/201552304431
+2. Facebook — https://www.facebook.com/KEEPINTOUCH72.2
+3. TikTok — https://www.tiktok.com/@mohamedelshabraw51
+4. InstaPay — https://ipn.eg/S/mohamed.mansour175505/instapay/5eK26X
+5. Location — https://maps.app.goo.gl/WRPARNSHWeSmmw7y8 (owner-supplied Google Maps location)
 
-The four items above are the **only** contact/payment tiles displayed. Unconfigured Instagram, Telegram, X, Vodafone Cash, Google Reviews/Maps, and the unpublished shop tile have been removed. The disabled call button has also been removed. Save Contact and Share remain usable.
+The vCard (Save Contact) includes all relevant profile URLs including Location. The InstaPay recipient shown on the page remains `mohamed.mansour175505@instapay`. The logo scales without clipping on common mobile screens.
 
-## Mobile browser checks
-The Playwright test covers widths of 280, 320, 344, 360, 375, 390, 393, 402, 412, 414, 428, 430, 480, 667 and 768 px. It verifies four tiles in the requested order, all four exact link URLs, the complete colorful logo, no horizontal overflow, and no uncaught JavaScript errors. Live browser results are verified separately after each deployment.
+## QA procedure
+Playwright mobile Chrome viewports: 280, 320, 344, 360, 375, 390, 393, 402, 412, 414, 428, 430, 480, 667, 768 px. Checks: all five exact links, all 5 cards inside screen, no disabled tiles, full logo inside cover, no horizontal overflow, no uncaught JavaScript errors, and Save Contact and Share buttons available. Browser tests are simulations, not physical iOS/Android testing.
 
 ## QR code
-The existing printed QR resolves to https://selahfamilyapp.github.io/keep-in-touch-links/ and does **not** need to change when social links are updated. A physical scan on an Android and iPhone remains recommended before mass printing.
+The stand QR is encoded to `https://selahfamilyapp.github.io/keep-in-touch-links/`, which remains unchanged. Changing contact links or adding Google Maps **does not require reprinting the QR**. Confirm a print proof by scanning with both an Android camera and an iPhone camera before bulk printing.
 
-## Limits
-Mobile-sized browser emulation is not a substitute for a physical iOS Safari or Android camera scan. The listed social/profile URLs were supplied by the business owner; activating them in the site does not authenticate or verify the target accounts' ownership.
+## Limitations
+The short Google Maps link was supplied by the owner and was observed to redirect to Google Maps for a Keep in Touch location in Alexandria; different users may encounter Google's consent screen. No GPS coordinates or street address were inferred for the saved contact card.
