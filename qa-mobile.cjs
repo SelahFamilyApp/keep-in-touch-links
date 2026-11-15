@@ -35,11 +35,16 @@ for(const width of screens){
       tiles:tiles.length,
       tilesInside:tiles.every(t=>t.x>=-1 && t.right<=innerWidth+1),
       whatsapp:document.querySelector('[data-id="whatsapp"]').getAttribute('href'),
-      facebook:[...document.querySelectorAll('.tile')].find(e=>e.textContent.includes('Facebook')).getAttribute('href')
+      facebook:document.querySelector('[data-id="facebook"]')?.getAttribute('href'),
+      tiktok:document.querySelector('[data-id="tiktok"]')?.getAttribute('href'),
+      instapay:document.querySelector('[data-id="instapay"]')?.getAttribute('href'),
+      tileIds:[...document.querySelectorAll('.tile')].map(e=>e.dataset.id),
+      hasSaveContact:!!document.getElementById('save'),
+      hasShare:!!document.getElementById('share')
     };
   });
   result.width=width;result.jsErrors=exceptions;
-  result.passed=result.logoVisible&&result.logoInside&&result.identityAfter&&result.scrollWidth<=result.viewport+1&&result.tilesInside&&result.tiles===11&&result.whatsapp==='https://wa.me/201552304431'&&exceptions.length===0&&result.logoPath.includes('kit-color-logo-v2.png');
+  result.passed=result.logoVisible&&result.logoInside&&result.identityAfter&&result.scrollWidth<=result.viewport+1&&result.tilesInside&&result.tiles===4&&result.disabledTiles===0&&result.tileIds.join(',')==='whatsapp,facebook,tiktok,instapay'&&result.whatsapp==='https://wa.me/201552304431'&&result.facebook==='https://www.facebook.com/KEEPINTOUCH72.2'&&result.tiktok==='https://www.tiktok.com/@mohamedelshabraw51'&&result.instapay==='https://ipn.eg/S/mohamed.mansour175505/instapay/5eK26X'&&result.hasSaveContact&&result.hasShare&&exceptions.length===0&&result.logoPath.includes('kit-color-logo-v2.png');
   all.push(result);
   if(captures.has(width)) await p.screenshot({path:path.join(directory,'fixed-'+width+'.png'),fullPage:true});
   await p.close();

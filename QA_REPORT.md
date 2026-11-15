@@ -1,24 +1,25 @@
-# Keep in Touch — Mobile Logo and QR Validation
+# Keep in Touch — Official Links and Mobile QA
 
-Validated: 2026-11-15
+Updated: 2026-11-15
 
-## Change
-- Replaced the previous truncated logo asset with `assets/kit-color-logo-v2.png`, containing the full gift artwork, ribbon and "Gift Shop" lettering.
-- The logo cover is now content-sized, with proportional image scaling, sufficient white padding, no overlay, and no clipping.
-- The website remains a static GitHub Pages site in `SelahFamilyApp/keep-in-touch-links`.
+## Live deployment
+Public GitHub Pages site: https://selahfamilyapp.github.io/keep-in-touch-links/
+Personal GitHub repository: https://github.com/SelahFamilyApp/keep-in-touch-links
 
-## Browser-emulated responsive QA
-Using desktop Google Chrome via Playwright with touch and mobile device scaling enabled at viewport widths: **280, 320, 344, 360, 375, 390, 393, 402, 412, 414, 428, 430, 480, 667, and 768 px**.
+## Verified owner-supplied links
+- WhatsApp: https://wa.me/201552304431
+- Facebook (only official page on the site): https://www.facebook.com/KEEPINTOUCH72.2
+- TikTok (canonical account URL without temporary sharing parameters): https://www.tiktok.com/@mohamedelshabraw51
+- InstaPay payment link: https://ipn.eg/S/mohamed.mansour175505/instapay/5eK26X
+- Recipient displayed before payment: mohamed.mansour175505@instapay
 
-Result: **15/15 passed**. Every tested viewport had a loaded 930 × 640 PNG logo fully inside the cover, the heading after the image, 11 tiles inside the viewport, no horizontal document overflow, and no uncaught JavaScript errors. WhatsApp was verified to point to `https://wa.me/201552304431`.
+The four items above are the **only** contact/payment tiles displayed. Unconfigured Instagram, Telegram, X, Vodafone Cash, Google Reviews/Maps, and the unpublished shop tile have been removed. The disabled call button has also been removed. Save Contact and Share remain usable.
 
-## QR-code check
-The existing 686 × 686 PNG QR was decoded programmatically with OpenCV into the exact URL:
-`https://selahfamilyapp.github.io/keep-in-touch-links/`
+## Mobile browser checks
+The Playwright test covers widths of 280, 320, 344, 360, 375, 390, 393, 402, 412, 414, 428, 430, 480, 667 and 768 px. It verifies four tiles in the requested order, all four exact link URLs, the complete colorful logo, no horizontal overflow, and no uncaught JavaScript errors. Live browser results are verified separately after each deployment.
 
-The QR contains a standard HTTPS URL; iPhone and Android cameras support standard URL QR codes. This code-level check **does not replace a physical-device scan**, especially of a printed acrylic stand. The final printed sample should be scanned with both an iPhone and an Android device.
+## QR code
+The existing printed QR resolves to https://selahfamilyapp.github.io/keep-in-touch-links/ and does **not** need to change when social links are updated. A physical scan on an Android and iPhone remains recommended before mass printing.
 
-## Testing limits
-- iOS Safari WebKit was not installed in the testing environment. The iPhone-sized viewports were emulated in Chrome, not tested in Safari on an actual iPhone.
-- The responsive test validates this public QR landing page, not every storefront/catalog view of the separate local V7 demo.
-- Placeholder social/payment buttons remain intentionally disabled pending the business's official accounts.
+## Limits
+Mobile-sized browser emulation is not a substitute for a physical iOS Safari or Android camera scan. The listed social/profile URLs were supplied by the business owner; activating them in the site does not authenticate or verify the target accounts' ownership.
