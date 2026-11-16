@@ -39,6 +39,8 @@ for(const width of screens){
       tiktok:document.querySelector('[data-id="tiktok"]')?.getAttribute('href'),
       instapay:document.querySelector('[data-id="instapay"]')?.getAttribute('href'),
       maps:document.querySelector('[data-id="location"]')?.getAttribute('href'),
+      wepayNumber:document.querySelector('[data-id="wepay"] .wepay-label small')?.textContent,
+      wepayIsButton:document.querySelector('[data-id="wepay"]')?.tagName==='BUTTON',
       locationGridSpan:getComputedStyle(document.querySelector('[data-id="location"]')).gridColumnStart,
       tileIds:[...document.querySelectorAll('.tile')].map(e=>e.dataset.id),
       hasSaveContact:!!document.getElementById('save'),
@@ -46,7 +48,15 @@ for(const width of screens){
     };
   });
   result.width=width;result.jsErrors=exceptions;
-  result.passed=result.logoVisible&&result.logoInside&&result.identityAfter&&result.scrollWidth<=result.viewport+1&&result.tilesInside&&result.tiles===5&&result.disabledTiles===0&&result.tileIds.join(',')==='whatsapp,facebook,tiktok,instapay,location'&&result.maps==='https://maps.app.goo.gl/WRPARNSHWeSmmw7y8'&&result.whatsapp==='https://wa.me/201552304431'&&result.facebook==='https://www.facebook.com/KEEPINTOUCH72.2'&&result.tiktok==='https://www.tiktok.com/@mohamedelshabraw51'&&result.instapay==='https://ipn.eg/S/mohamed.mansour175505/instapay/5eK26X'&&result.hasSaveContact&&result.hasShare&&exceptions.length===0&&result.logoPath.includes('kit-color-logo-v2.png');
+  if(width===390&&url.startsWith('https://')){
+    try{
+      await p.context().grantPermissions(['clipboard-read','clipboard-write'],{origin:new URL(url).origin});
+      await p.locator('#wepayCopy').click();
+      result.copiedPhone=await p.evaluate(()=>navigator.clipboard.readText());
+      result.copyToast=await p.locator('#toast').textContent();
+    }catch(e){result.copyError=e.message}
+  }
+  result.passed=result.logoVisible&&result.logoInside&&result.identityAfter&&result.scrollWidth<=result.viewport+1&&result.tilesInside&&result.tiles===6&&result.disabledTiles===0&&result.tileIds.join(',')==='whatsapp,facebook,tiktok,instapay,wepay,location'&&result.wepayIsButton&&result.wepayNumber==='0155 230 4431'&&result.maps==='https://maps.app.goo.gl/WRPARNSHWeSmmw7y8'&&result.whatsapp==='https://wa.me/201552304431'&&result.facebook==='https://www.facebook.com/KEEPINTOUCH72.2'&&result.tiktok==='https://www.tiktok.com/@mohamedelshabraw51'&&result.instapay==='https://ipn.eg/S/mohamed.mansour175505/instapay/5eK26X'&&result.hasSaveContact&&result.hasShare&&exceptions.length===0&&result.logoPath.includes('kit-color-logo-v2.png')&&(width!==390||!url.startsWith('https://')||(result.copiedPhone==='01552304431'&&result.copyToast?.includes('تم نسخ')));
   all.push(result);
   if(captures.has(width)) await p.screenshot({path:path.join(directory,'fixed-'+width+'.png'),fullPage:true});
   await p.close();
