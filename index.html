@@ -29,6 +29,13 @@
 .cover:after{display:none!important}
 @media(max-width:359px){.cover{padding:12px 10px 10px}}
 .payment-account{margin:18px 18px 0;padding:13px 10px;border:1px solid #e7dfef;background:#fcfaff;border-radius:14px;direction:rtl;color:#685478;text-align:center;font-size:12px}.payment-account strong{display:block;margin:4px 0 3px;color:#65328a;font:600 12px "DM Sans",Tahoma,sans-serif;overflow-wrap:anywhere;word-break:break-word}.payment-account small{display:block;color:#887e90;font-size:10px;line-height:1.6}
+.wepay{background:#692b8f;font:800 13px "DM Sans",Arial,sans-serif;letter-spacing:-.04em}
+.tile-wepay{grid-column:1/-1;min-height:88px;height:auto;flex-direction:row;justify-content:flex-start;gap:14px;padding:14px 18px;direction:ltr}
+.tile-wepay .wepay-label{display:flex;flex-direction:column;gap:3px;min-width:0;text-align:left;align-items:flex-start}
+.tile-wepay .wepay-label strong{font:700 15px "DM Sans",Arial,sans-serif}
+.tile-wepay .wepay-label small{font:600 12px "DM Sans",Arial,sans-serif;color:#655b6b}
+.tile-wepay .wepay-copy{font-size:24px;line-height:1;color:#7b5887;margin-left:auto;flex-shrink:0}
+.wepay-hint{margin:13px 18px 0;padding:0 6px;font:500 12px Tajawal,Tahoma,sans-serif;color:#796f7c;line-height:1.7;text-align:center}.wepay-hint b{font-weight:700;color:#65328a;unicode-bidi:isolate}
 .tile-location{grid-column:1/-1;min-height:88px;height:auto;display:flex;flex-direction:row;gap:12px;padding:13px 16px;direction:ltr}.tile-location .logo-circle{flex:none}.location-label{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:4px;min-width:0}.location-label strong{font:600 14px "DM Sans",Tahoma,sans-serif}.location-label small{font:500 11px Tajawal,Tahoma,sans-serif;color:#80777b;line-height:1.3}
 </style></head>
 <body><main class="page">
@@ -43,9 +50,11 @@
 <a class="tile" data-id="facebook" href="https://www.facebook.com/KEEPINTOUCH72.2" target="_blank" rel="noopener noreferrer" aria-label="Keep in Touch Facebook page"><span class="logo-circle facebook">f</span><span class="label">Facebook</span></a>
 <a class="tile" data-id="tiktok" href="https://www.tiktok.com/@mohamedelshabraw51" target="_blank" rel="noopener noreferrer" aria-label="TikTok account @mohamedelshabraw51"><span class="logo-circle tiktok">♪</span><span class="label">TikTok</span></a>
 <a class="tile" data-id="instapay" href="https://ipn.eg/S/mohamed.mansour175505/instapay/5eK26X" target="_blank" rel="noopener noreferrer" aria-label="إرسال نقود عبر InstaPay إلى mohamed.mansour175505@instapay"><span class="logo-circle instapay">IP</span><span class="label">InstaPay</span></a>
+<button class="tile tile-wepay" id="wepayCopy" data-id="wepay" type="button" aria-label="نسخ رقم محفظة WE Pay 01552304431"><span class="logo-circle wepay" aria-hidden="true">WE</span><span class="wepay-label"><strong>WE Pay</strong><small dir="ltr">0155 230 4431</small></span><span class="wepay-copy" aria-hidden="true">⧉</span></button>
 <a class="tile tile-location" data-id="location" href="https://maps.app.goo.gl/WRPARNSHWeSmmw7y8" target="_blank" rel="noopener noreferrer" aria-label="عرض موقع Keep in Touch على خرائط Google"><span class="logo-circle address" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" fill="#34a853" stroke="none"/><circle cx="12" cy="10" r="2.5" fill="#fbbc05" stroke="none"/></svg></span><span class="location-label"><strong>Location</strong><small>Google Maps · رشدي، الإسكندرية</small></span></a>
 </section>
 <div class="payment-account" role="note"><span>تحويل InstaPay إلى الحساب</span><strong dir="ltr">mohamed.mansour175505@instapay</strong><small>تأكد من اسم المستلم داخل تطبيق InstaPay قبل تأكيد التحويل.</small></div>
+<p class="wepay-hint">محفظة WE Pay: اضغط على الزر لنسخ الرقم، ثم حوّل من تطبيق محفظتك. تأكد من اسم المستلم قبل الدفع.</p>
 <p class="footer">KEEP IN TOUCH · ALEXANDRIA</p>
 
 </main><div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -55,7 +64,9 @@ var $=function(id){return document.getElementById(id)},toast=$('toast'),timer;
 function notify(s){toast.textContent=s;toast.classList.add('visible');clearTimeout(timer);timer=setTimeout(function(){toast.classList.remove('visible')},3200)}
 function makeContact(){var v=['BEGIN:VCARD','VERSION:3.0','FN:Keep in Touch','ORG:Keep in Touch Gift Boutique','NOTE:Gift Boutique - Roushdy Alexandria Egypt. WhatsApp: +201552304431','TEL;TYPE=CELL:+201552304431','URL:'+location.href,'URL:https://www.facebook.com/KEEPINTOUCH72.2','URL:https://www.tiktok.com/@mohamedelshabraw51','URL:https://maps.app.goo.gl/WRPARNSHWeSmmw7y8','END:VCARD'].join('\r\n');var b=new Blob([v],{type:'text/vcard;charset=utf-8'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='Keep-in-Touch.vcf';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},2000);notify('تم تنزيل بطاقة جهة الاتصال')}
 $('save').addEventListener('click',makeContact);
-async function copy(){try{await navigator.clipboard.writeText(location.href);notify('تم نسخ الرابط')}catch(e){var t=document.createElement('textarea');t.value=location.href;document.body.appendChild(t);t.select();var ok=document.execCommand('copy');t.remove();notify(ok?'تم نسخ الرابط':'انسخ الرابط من شريط العنوان')}}
+async function copyText(value,success,failure){try{if(!navigator.clipboard||!navigator.clipboard.writeText)throw Error('Clipboard unavailable');await navigator.clipboard.writeText(value);notify(success)}catch(e){var t=document.createElement('textarea');t.value=value;t.setAttribute('readonly','');t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();var ok=document.execCommand('copy');t.remove();notify(ok?success:failure)}}
+function copy(){return copyText(location.href,'تم نسخ الرابط','انسخ الرابط من شريط العنوان')}
+$('wepayCopy').addEventListener('click',function(){copyText('01552304431','تم نسخ رقم محفظة WE Pay','لم يتم النسخ تلقائيًا، استخدم الرقم الظاهر 01552304431')})
 $('share').addEventListener('click',async function(){if(navigator.share){try{await navigator.share({title:'Keep in Touch',url:location.href,text:'Keep in Touch Gift Boutique - Alexandria'})}catch(e){if(e.name!=='AbortError')copy()}}else copy()});
 })();
 </script>
